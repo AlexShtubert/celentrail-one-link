@@ -5,6 +5,9 @@ on:
     paths:
       - "spec/**"
       - "tools/**"
+      - "cad/**"
+      - "models/**"
+      - "reports/**"
       - "requirements.txt"
       - ".github/workflows/build-latest.yml"
   workflow_dispatch:
@@ -17,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -33,14 +36,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Build latest artifacts
+      - name: Run build script
         run: |
           python tools/build_latest.py
 
       - name: Auto commit generated files
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "auto: regenerate latest"
+          commit_message: "auto: regenerate latest artifacts"
+          skip_dirty_check: true
           file_pattern: |
             cad/**
             models/**
