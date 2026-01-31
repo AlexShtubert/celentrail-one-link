@@ -1,5 +1,8 @@
 name: build-latest
 
+permissions:
+  contents: write
+
 on:
   push:
     paths:
