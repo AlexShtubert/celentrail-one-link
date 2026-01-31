@@ -1,0 +1,44 @@
+meta:
+  system_name: "Celentrail"
+  units: "mm, N, kg"
+  spec_version: "v1"
+
+beam:
+  length: 1150.0
+  angle_leg: 20.0
+  angle_thickness: 2.0
+  gap_between_vertices: 97.4
+  vertex_plate_height: 50.0
+  vertex_plate_thickness: 2.0
+  side_wall_thickness: 2.0
+
+trolley:
+  plate_x: 340.0
+  plate_y: 240.0
+  plate_thickness: 12.0
+  axle_offset_from_edges: 40.0
+  axle_diameter: 20.0
+  axle_height: 35.0
+
+rollers:
+  outer_diameter: 80.0
+  width: 15.0
+  count_per_axle: 4
+  v_track_angle_deg: 110.0
+  v_roller_angle_deg: 106.0
+
+loads:
+  mass_total_kg: 60.0
+  x_cm_from_trolley_mm: 575.0
+  base_between_left_right_mm: 260.0
+
+materials:
+  steel:
+    name: "Steel"
+    E_GPa: 210
+    nu: 0.30
+    rho_kg_m3: 7850
+  pu_upper:
+    name: "ErtalyteTX_like_or_hard_plastic"
+  pu_lower:
+    name: "PU 95-98A (suggested)"
