@@ -2,19 +2,15 @@ name: build-latest
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   workflow_dispatch:
-
-permissions:
-  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -26,15 +22,12 @@ jobs:
         run: |
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
+          else
+            echo "requirements.txt not found, skipping"
           fi
 
-      - name: Run build_latest script
+      - name: Run build_latest.py
         run: |
+          ls -la
+          ls -la tools
           python tools/build_latest.py
-
-      - name: Commit generated artifacts
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "auto: build latest artifacts"
-          commit_user_name: github-actions
-          commit_user_email: github-actions@github.com
