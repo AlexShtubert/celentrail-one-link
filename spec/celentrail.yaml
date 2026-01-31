@@ -1,44 +1,98 @@
 meta:
-  system_name: "Celentrail"
-  units: "mm, N, kg"
-  spec_version: "v1"
+  system_name: Celentrail
+  spec_version: v1.0
+  units: mm_N_kg
+  owner: AlexShtubert
+  last_change: 2026-01-31
+
+system:
+  type: hidden_console_sliding_door
+  contact_type: V_to_V
+  load_bearing: upper_rollers
+  stabilizing: lower_rollers
+  mounting: wall_bracket
+  note: >
+    Любой ИИ читает CANONICAL.md и этот файл. Менять можно только этот YAML.
+    Геометрию/конструкцию нельзя менять без явного подтверждения владельца.
 
 beam:
   length: 1150.0
-  angle_leg: 20.0
-  angle_thickness: 2.0
-  gap_between_vertices: 97.4
-  vertex_plate_height: 50.0
-  vertex_plate_thickness: 2.0
-  side_wall_thickness: 2.0
+  profile_type: double_angle
+  angle:
+    leg: 20.0
+    thickness: 2.0
+    orientation:
+      top_vertex: up
+      bottom_vertex: down
+  vertex_gap: 97.4
+  vertex_plates:
+    top:
+      height: 50.0
+      thickness: 2.0
+    bottom:
+      height: 50.0
+      thickness: 2.0
+  side_walls:
+    thickness: 2.0
+  material: steel
 
 trolley:
-  plate_x: 340.0
-  plate_y: 240.0
-  plate_thickness: 12.0
-  axle_offset_from_edges: 40.0
-  axle_diameter: 20.0
-  axle_height: 35.0
+  plate:
+    x: 340.0
+    y: 240.0
+    thickness: 12.0
+    material: steel
+  axles:
+    diameter: 20.0
+    height: 35.0
+    offset_from_edges: 40.0
+    layout: four_corners
 
 rollers:
-  outer_diameter: 80.0
+  diameter: 80.0
   width: 15.0
   count_per_axle: 4
-  v_track_angle_deg: 110.0
-  v_roller_angle_deg: 106.0
+  bearing: 6204_2RS
+  upper:
+    role: load_bearing
+    profile: V
+    v_angle_deg: 106.0
+    material: hard_plastic
+  lower:
+    role: preload
+    profile: PU
+    hardness_shore_A: 95
+    pu_layer_thickness: 3.0
+    material: PU_95A
+
+track:
+  profile: V
+  v_angle_deg: 110.0
+  contact_points: 2
+  micro_chamfer_or_radius: true
+  material: steel
 
 loads:
-  mass_total_kg: 60.0
-  x_cm_from_trolley_mm: 575.0
-  base_between_left_right_mm: 260.0
+  total_mass_kg: 60.0
+  gravity_m_s2: 9.80665
+  center_of_mass_offset_x: 575.0
+  roller_base_width: 260.0
 
-materials:
-  steel:
-    name: "Steel"
-    E_GPa: 210
-    nu: 0.30
-    rho_kg_m3: 7850
-  pu_upper:
-    name: "ErtalyteTX_like_or_hard_plastic"
-  pu_lower:
-    name: "PU 95-98A (suggested)"
+kinematics:
+  dof: 1
+  sliding_axis: X
+  allowed_rotation: none
+
+constraints:
+  forbid_geometry_change_without_confirmation: true
+  forbid_new_parts_without_confirmation: true
+  forbid_renaming_latest_paths: true
+
+outputs:
+  latest_paths:
+    glb: models/latest.glb
+    step: cad/latest.step
+    report: reports/latest.md
+  optional_archives:
+    glb_dir: models/archive
+    step_dir: cad/archive
