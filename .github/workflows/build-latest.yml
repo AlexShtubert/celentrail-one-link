@@ -2,14 +2,8 @@ name: build-latest
 
 on:
   push:
-    paths:
-      - "spec/**"
-      - "tools/**"
-      - "cad/**"
-      - "models/**"
-      - "reports/**"
-      - "requirements.txt"
-      - ".github/workflows/build-latest.yml"
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -22,9 +16,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: true
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -33,19 +24,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
 
-      - name: Run build script
+      - name: Run build_latest script
         run: |
           python tools/build_latest.py
 
-      - name: Auto commit generated files
+      - name: Commit generated artifacts
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "auto: regenerate latest artifacts"
-          skip_dirty_check: true
-          file_pattern: |
-            cad/**
-            models/**
-            reports/**
+          commit_message: "auto: build latest artifacts"
+          commit_user_name: github-actions
+          commit_user_email: github-actions@github.com
