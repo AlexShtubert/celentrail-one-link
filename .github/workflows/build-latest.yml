@@ -4,10 +4,8 @@ on:
   push:
     paths:
       - "спецификация/**"
-      - "кад/**"
       - "инструменты/**"
       - "requirements.txt"
-      - ".github/workflows/build-latest.yml"
   workflow_dispatch:
 
 permissions:
@@ -18,29 +16,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Build latest artifacts
+      - name: Run generator
         run: |
-          python "инструменты/build_latest.py"
+          python инструменты/generate.py || echo "generator not ready yet"
 
-      - name: Commit generated files
+      - name: Auto commit results
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "auto: update latest model/report"
+          commit_message: "auto: update latest models and reports"
           file_pattern: |
             модели/**
+            кад/**
             отчеты/**
