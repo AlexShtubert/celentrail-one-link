@@ -5,6 +5,7 @@ trolley_alt_internal_rod:
       width: 30
       wall_thickness: 2
       length: 300
+
   rollers:
     type: u_groove_nylon
     count: 4
@@ -17,6 +18,7 @@ trolley_alt_internal_rod:
         both_sides: true
         thickness: 2
         hardness_shore_A: 80
+
   roller_holes:
     coordinate_system:
       x: length_left_to_right
@@ -25,35 +27,22 @@ trolley_alt_internal_rod:
     upper_right: { x: 270, y: 30 }
     lower_left:  { x: 60,  y: 86 }
     lower_right: { x: 240, y: 86 }
+
   rod:
     diameter: 20
     length: 1000
     material: steel
     finish: polished
     lubrication: ptfe_dry
+
   ends:
     round_openings_diameter: 30
     dust_brush_thickness: 5
+
   kinematics:
     extreme_left_stop:
       load_bearing: lower_left
       anti_rotation: upper_right
-viewer_3d:
-  primary_glb_path: models/latest.glb
-  playcanvas_model_viewer: https://playcanvas.com/model-viewer/
-  rule: "Вставлять в PlayCanvas только RAW-ссылку на models/latest.glb"
-targets:
-  noise:
-    goal: library_silent
-    notes:
-      - "нет металл-металл по крепежу (PU шайбы с двух сторон обязательны)"
-      - "внутренняя шумоизоляция корпуса не касается роликов/вала"
-      - "вал Ø20 полировка + сухая PTFE плёнка, не густая смазка"
-  forces_N:
-    start_target: "5-10"
-    run_target: "2-5"
-  preload:
-    rule: "минимальный преднатяг без дребезга"
 
 
 
