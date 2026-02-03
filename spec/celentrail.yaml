@@ -1,60 +1,20 @@
 trolley_alt_internal_rod:
-  housing:
-    tube:
-      height: 100
-      width: 30
-      wall_thickness: 2
-      length: 300
+  tube:
+    length: 300
+    width: 30
+    height: 100
+    wall_thickness: 2
 
-  rollers:
-    type: u_groove_nylon
-    count: 4
-    width: 20
+  roller:
     outer_diameter: 39.5
-    center_diameter: 28
-    fastening:
-      hole_diameter: 10
-      pu_washers:
-        both_sides: true
-        thickness: 2
-        hardness_shore_A: 80
-
-  roller_holes:
-    coordinate_system:
-      x: length_left_to_right
-      y: top_to_bottom
-    upper_left:  { x: 30,  y: 30 }
-    upper_right: { x: 270, y: 30 }
-    lower_left:  { x: 60,  y: 86 }
-    lower_right: { x: 240, y: 86 }
+    width: 20
 
   rod:
     diameter: 20
     length: 1000
-    material: steel
-    finish: polished
-    lubrication: ptfe_dry
 
-  ends:
-    round_openings_diameter: 30
-    dust_brush_thickness: 5
-
-  kinematics:
-    extreme_left_stop:
-      load_bearing: lower_left
-      anti_rotation: upper_right
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+  holes:
+    - { x: 30,  y: 18 }   # верх-лев (18 от верха)
+    - { x: 270, y: 18 }   # верх-прав
+    - { x: 60,  y: 86 }   # низ-лев
+    - { x: 240, y: 86 }   # низ-прав
