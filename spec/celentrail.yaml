@@ -1,170 +1,55 @@
-meta:
-  system_name: Celentrail
-  spec_version: v1.1
-  units: mm_N_kg
-  owner: AlexShtubert
-  last_change: 2026-02-03
-
-system:
-  type: hidden_console_sliding_door
-  contact_type: V_to_V
-  load_bearing: upper_rollers
-  stabilizing: lower_rollers
-  mounting: wall_bracket
-  note: >
-    Любой ИИ читает CANONICAL.md и этот файл.
-    Менять можно только этот YAML.
-    Геометрию/конструкцию нельзя менять без явного подтверждения владельца.
-
-beam:
-  length: 1150.0
-  profile_type: double_angle
-  angle:
-    leg: 20.0
-    thickness: 2.0
-  orientation:
-    top_vertex: up
-    bottom_vertex: down
-  vertex_gap: 97.4
-  vertex_plates:
-    top:
-      height: 50.0
-      thickness: 2.0
-    bottom:
-      height: 50.0
-      thickness: 2.0
-  side_walls:
-    thickness: 2.0
-  material: steel
-
-trolley:
-  # Текущая ранее зафиксированная тележка (ролики Ø80), оставлена без изменений:
-  plate:
-    x: 340.0
-    y: 240.0
-    thickness: 12.0
-    material: steel
-  axles:
-    diameter: 20.0
-    height: 35.0
-    offset_from_edges: 40.0
-    layout: four_corners
-  rollers:
-    diameter: 80.0
-    width: 15.0
-    count_per_axle: 4
-    bearing: 6204_2RS
-    upper:
-      role: load_bearing
-      profile: V
-      v_angle_deg: 106.0
-      material: hard_plastic
-    lower:
-      role: preload
-      profile: PU
-      hardness_shore_A: 95
-      pu_layer_thickness: 3.0
-      material: PU_95A
-
 trolley_alt_internal_rod:
-  # Альтернативная тележка: труба-корпус с роликами внутри, зажимает вал Ø20
-  # Зафиксировано со слов владельца (геометрия отверстий и роликов).
   housing:
-    tube_profile:
-      height: 100.0
-      width: 30.0
-      wall_thickness: 2.0
-      length: 300.0
-    inner_noise_isolation:
-      required: true
-      note: "Шумоизоляция не должна касаться роликов/вала."
-    end_caps:
-      required: true
-      note: "Торцы закрыть мягкими заглушками (EVA/PU) + нейтральный силикон/MS-polymer."
-
+    tube:
+      height: 100
+      width: 30
+      wall_thickness: 2
+      length: 300
   rollers:
     type: u_groove_nylon
     count: 4
-    width: 20.0
+    width: 20
     outer_diameter: 39.5
-    center_diameter: 28.0
-    bearing: "nylon_roller_with_bearing"
+    center_diameter: 28
     fastening:
-      through_bolt_hole_diameter: 10.0
-      pu_washers_both_sides:
-        thickness: 2.0
+      hole_diameter: 10
+      pu_washers:
+        both_sides: true
+        thickness: 2
         hardness_shore_A: 80
-      note: "Крепление роликов через PU шайбы с двух сторон стенки трубы."
-
-  roller_holes_coordinates:
-    # Координаты центров отверстий под оси роликов.
-    # Система координат:
-    # X: вдоль длины трубы 0..300 мм (0 слева)
-    # Y: вниз от верхней кромки 0..100 мм (0 сверху)
-    upper_left:
-      x: 30.0
-      y: 30.0
-    upper_right:
-      x: 270.0
-      y: 30.0
-    lower_row_delta_y_from_upper: 56.0
-    lower_left:
-      x: 60.0
-      y: 86.0
-    lower_right:
-      x: 240.0
-      y: 86.0
-
+  roller_holes:
+    coordinate_system:
+      x: length_left_to_right
+      y: top_to_bottom
+    upper_left:  { x: 30,  y: 30 }
+    upper_right: { x: 270, y: 30 }
+    lower_left:  { x: 60,  y: 86 }
+    lower_right: { x: 240, y: 86 }
   rod:
-    diameter: 20.0
-    length: 1000.0
+    diameter: 20
+    length: 1000
     material: steel
-    finish:
-      polishing_required: true
-      lubrication: PTFE_dry_or_thin_film
-    note: "Вал Ø20 проходит через круглые отверстия по торцам, тележка катится/зажимает вал роликами."
+    finish: polished
+    lubrication: ptfe_dry
+  ends:
+    round_openings_diameter: 30
+    dust_brush_thickness: 5
+  kinematics:
+    extreme_left_stop:
+      load_bearing: lower_left
+      anti_rotation: upper_right
 
-  end_openings_and_brushes:
-    side_round_openings_diameter: 30.0
-    dust_brushes:
-      required: true
-      thickness: 5.0
-      material: nylon_brush
-    note: "По торцам справа/слева: отверстия Ø30 + щётки для пыли и тишины."
 
-  load_case_extreme_left_stop:
-    # В крайнем положении до упора доминирует диагональная пара LL + RU:
-    dominant_support_pair: [lower_left, upper_right]
-    note: "LL несёт основной вес, RU работает как упор от проворота/перекоса."
 
-track:
-  profile: V
-  v_angle_deg: 110.0
-  contact_points: 2
-  micro_chamfer_or_radius: true
-  material: steel
 
-loads:
-  total_mass_kg: 60.0
-  gravity_m_s2: 9.80665
-  center_of_mass_offset_x: 575.0
-  roller_base_width: 260.0
 
-kinematics:
-  dof: 1
-  sliding_axis: X
-  allowed_rotation: none
 
-constraints:
-  forbid_geometry_change_without_confirmation: true
-  forbid_new_parts_without_confirmation: true
-  forbid_renaming_latest_paths: true
 
-outputs:
-  latest_paths:
-    glb: models/latest.glb
-    step: cad/latest.step
-    report: reports/latest.md
-  optional_archives:
-    glb_dir: models/archive
-    step_dir: cad/archive
+
+
+
+
+
+
+
+    
