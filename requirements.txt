@@ -1,3 +1,6 @@
 pyyaml
 trimesh
 numpy
+pyyaml
+numpy
+trimesh
