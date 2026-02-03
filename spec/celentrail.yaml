@@ -42,6 +42,18 @@ viewer_3d:
   primary_glb_path: models/latest.glb
   playcanvas_model_viewer: https://playcanvas.com/model-viewer/
   rule: "Вставлять в PlayCanvas только RAW-ссылку на models/latest.glb"
+targets:
+  noise:
+    goal: library_silent
+    notes:
+      - "нет металл-металл по крепежу (PU шайбы с двух сторон обязательны)"
+      - "внутренняя шумоизоляция корпуса не касается роликов/вала"
+      - "вал Ø20 полировка + сухая PTFE плёнка, не густая смазка"
+  forces_N:
+    start_target: "5-10"
+    run_target: "2-5"
+  preload:
+    rule: "минимальный преднатяг без дребезга"
 
 
 
