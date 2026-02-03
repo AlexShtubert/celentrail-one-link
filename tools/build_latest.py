@@ -24,7 +24,10 @@ def _tube_block(t):
     L = float(tube.get("length", 300))
     W = float(tube.get("width", 30))
     H = float(tube.get("height", 100))
-    wall = tube.get("wall")
+    wall = tube.get("wall", tube.get("wall_thickness"))
+if wall is None:
+    raise ValueError("В spec/celentrail.yaml отсутствует wall или wall_thickness")
+
     if wall is None:
         wall = tube.get("wall_thickness", tube.get("wallThickness", 2))
     wall = float(wall)
