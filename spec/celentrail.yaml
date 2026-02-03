@@ -38,6 +38,10 @@ trolley_alt_internal_rod:
     extreme_left_stop:
       load_bearing: lower_left
       anti_rotation: upper_right
+viewer_3d:
+  primary_glb_path: models/latest.glb
+  playcanvas_model_viewer: https://playcanvas.com/model-viewer/
+  rule: "Вставлять в PlayCanvas только RAW-ссылку на models/latest.glb"
 
 
 
