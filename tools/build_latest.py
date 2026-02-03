@@ -5,7 +5,7 @@ from pathlib import Path
 
 # paths
 ROOT = Path(__file__).resolve().parents[1]
-SPEC = ROOT / "спецификация" / "celentrail.yaml"
+SPEC = ROOT / "spec" / "celentrail.yaml"
 OUT = ROOT / "models" / "latest.glb"
 
 # load spec
